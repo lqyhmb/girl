@@ -1,0 +1,10 @@
+server:
+  port: 8080
+name: 小嘟嘟
+cupSize: A
+age: 22
+content: "name: ${name} cupSize: ${cupSize} age: ${age}"
+girl:
+ name: James Rodriguez
+ cupSize: A
+ age: 26
