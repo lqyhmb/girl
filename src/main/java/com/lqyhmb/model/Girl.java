@@ -27,6 +27,16 @@ public class Girl {
     public Girl() {
     }
 
+    @Override
+    public String toString() {
+        return "Girl{" +
+                "id=" + id +
+                ", cupSize='" + cupSize + '\'' +
+                ", age=" + age +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
