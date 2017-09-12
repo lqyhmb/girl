@@ -1,8 +1,10 @@
 package com.lqyhmb.controller;
 
 import com.lqyhmb.model.Girl;
+import com.lqyhmb.model.Result;
 import com.lqyhmb.repository.GirlRepository;
 import com.lqyhmb.service.GirlService;
+import com.lqyhmb.utils.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +39,40 @@ public class GirlController {
     }
 
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError().getDefaultMessage());
-            return null;
+            return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
         }
         girl.setAge(girl.getAge());
         girl.setCupSize(girl.getCupSize());
         girl.setName(girl.getName());
+        girl.setMoney(girl.getMoney());
 
-        return girlRepository.save(girl);
+        return ResultUtil.success(girlRepository.save(girl));
     }
+
+    /*@PostMapping(value = "/girls")
+    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Result result = new Result();
+            result.setCode(1);
+            result.setMsg(bindingResult.getFieldError().getDefaultMessage());
+            result.setData(null);
+            return result;
+           *//* System.out.println(bindingResult.getFieldError().getDefaultMessage());
+            return null;*//*
+        }
+        girl.setAge(girl.getAge());
+        girl.setCupSize(girl.getCupSize());
+        girl.setName(girl.getName());
+        girl.setMoney(girl.getMoney());
+
+        Result result = new Result();
+        result.setCode(0);
+        result.setMsg("成功");
+        result.setData(girlRepository.save(girl));
+        return result;
+    }*/
 
     // 添加一个女生
    /* @PostMapping(value = "/girls")
@@ -71,13 +96,15 @@ public class GirlController {
     // 更新一个女生
     @PutMapping(value = "/girls/{id}")
     public Girl girlUpdate(@PathVariable("id") Integer id, @RequestParam("name") String name,
-                           @RequestParam("cupSize") String cupSize, @RequestParam("age") Integer age) {
+                           @RequestParam("cupSize") String cupSize, @RequestParam("age") Integer age,
+                           @RequestParam("money") double money) {
 
         Girl girl = new Girl();
         girl.setId(id);
         girl.setName(name);
         girl.setCupSize(cupSize);
         girl.setAge(age);
+        girl.setMoney(money);
 
         return girlRepository.save(girl);
     }
