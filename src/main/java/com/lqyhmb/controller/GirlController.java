@@ -41,6 +41,7 @@ public class GirlController {
     @PostMapping(value = "/girls")
     public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            //return null;
             return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
         }
         girl.setAge(girl.getAge());
@@ -131,4 +132,8 @@ public class GirlController {
         girlService.insertTwo();
     }
 
+    @GetMapping(value = "/girls/getAge/{id}")
+    public void getAge(@PathVariable("id") Integer id) throws Exception {
+        girlService.getAge(id);
+    }
 }
