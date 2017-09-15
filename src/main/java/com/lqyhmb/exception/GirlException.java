@@ -1,5 +1,7 @@
 package com.lqyhmb.exception;
 
+import com.lqyhmb.enums.ResultEnum;
+
 /**
  * Created by Rodriguez
  * 2017/9/15 12:52
@@ -12,6 +14,11 @@ public class GirlException extends RuntimeException {
     public GirlException(Integer code, String message) {
         super(message);
         this.code = code;
+    }
+
+    public GirlException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        this.code = resultEnum.getCode();
     }
 
     public Integer getCode() {

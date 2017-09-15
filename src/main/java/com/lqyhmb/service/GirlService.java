@@ -1,5 +1,6 @@
 package com.lqyhmb.service;
 
+import com.lqyhmb.enums.ResultEnum;
 import com.lqyhmb.exception.GirlException;
 import com.lqyhmb.model.Girl;
 import com.lqyhmb.repository.GirlRepository;
@@ -53,10 +54,12 @@ public class GirlService {
         Integer age = girl.getAge();
         if (age < 10) {
             // 返回"你还在上小学吧" code=100
-            throw new GirlException(100, "你还在上小学吧");
+            //throw new GirlException(100, "你还在上小学吧");
+            throw new GirlException(ResultEnum.PRIMARY_SCHOOL);
         } else if (age > 10 && age < 16) {
             // 返回"你可能还在上初中" code=101
-            throw new GirlException(101, "你可能还在上初中");
+            //throw new GirlException(101, "你可能还在上初中");
+            throw new GirlException(ResultEnum.MIDDLE_SCHOOL);
         }
 
         // 如果age>16，加钱
